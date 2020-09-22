@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
-import { auth } from './firebase/firebase.utils.js';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils.js';
 
 import Header from './components/header/Header.component';
 import HomePage from './pages/homepage/HomePage.component';
@@ -22,10 +22,27 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged( user => {
-      this.setState({ currentUser: user })
+    // when the user signs out the userAuth becomes null
+    this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
+      // check to only set the current user based on if the user is signed in
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        
+        userRef.onSnapshot( snapshot => {
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data()
+            }
+          })
 
-      console.log(user)
+          console.log(this.state)
+        })
+      } else {
+        this.setState({
+          currentUser: userAuth
+        })
+      }
     })
   }
 
