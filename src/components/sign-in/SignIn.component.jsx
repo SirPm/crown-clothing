@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { signInWithGoogle } from '../../firebase/firebase.utils.js';
+
 import FormInput from '../form-input/FormInput.component';
 import CustomButton from '../custom-button/CustomButton.component';
 
@@ -53,9 +55,21 @@ class SignIn extends React.Component {
                         label='password'
                         handleChange={this.handleChange} 
                     />
-                    <CustomButton type='submit'> 
-                        Sign In
-                    </CustomButton>
+                    <div className="buttons">
+                        <CustomButton type='submit'> 
+                            Sign In
+                        </CustomButton>
+                        {
+                            /* 
+                                isGoogleSignIn is a props that we're passing to the CustomButon component.
+                                we are not given it any value so that it will always be true, because that's 
+                                what we need it to be. 
+                            */
+                        }
+                        <CustomButton onClick={signInWithGoogle} isGoogleSignIn> 
+                            Sign In With Google
+                        </CustomButton>
+                    </div>
                 </form>
             </div>
         )
