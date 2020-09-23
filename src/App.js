@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils.js';
 import { connect } from 'react-redux';
 
@@ -49,12 +49,23 @@ class App extends React.Component {
       <div>
         <Header />
         <Switch>
-          <Route exact={true} path={'/'} component={HomePage} />
+          <Route exact path={'/'} component={HomePage} />
           <Route exact={true} path={'/shop'} component={ShopPage} />
-          <Route exact={true} path={'/sign-in-and-sign-up'} component={SignInAndSignUp} />
+          <Route exact path={'/sign-in-and-sign-up'} render={ () => {
+            return this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignUp />)
+          } }/>
         </Switch>
       </div>
     );
+  }
+}
+
+// we destructure the userReducer state off the user key in the state 
+// stored in the rootReducer so that we can have access to the currentUser in
+// the userReducer state
+const mapStateToProps = ({ user }) => {
+  return {
+    currentUser: user.currentUser
   }
 }
 
@@ -66,4 +77,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect( null, mapDispatchToProps )(App);
+export default connect( mapStateToProps, mapDispatchToProps )(App);
