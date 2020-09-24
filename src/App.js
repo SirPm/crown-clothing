@@ -28,8 +28,8 @@ class App extends React.Component {
           // setCurrentUser takes a parameter, the user which is an object containing the id and the 
           // snapshot data i.e the data of the current user
           setCurrentUser({
-            id: snapshot.id,
-              ...snapshot.data()
+            id: userRef.id,
+            ...snapshot.data()
           })
 
           // console.log(this.state)
@@ -53,7 +53,7 @@ class App extends React.Component {
           <Route exact={true} path={'/shop'} component={ShopPage} />
           <Route exact path={'/sign-in-and-sign-up'} render={ () => {
             return this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignUp />)
-          } }/>
+          }}/>
         </Switch>
       </div>
     );
@@ -71,9 +71,9 @@ const mapStateToProps = ({ user }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrentUser: user =>  {
+    setCurrentUser: user => {
       dispatch( setCurrentUser(user) )
-    } 
+    }
   }
 }
 

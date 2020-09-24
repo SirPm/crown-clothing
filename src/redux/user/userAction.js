@@ -1,4 +1,4 @@
-import { UserActionTypes } from './userTypes';
+import UserActionTypes from './userTypes';
 
 export const setCurrentUser = (user) => {
     return {
