@@ -1,16 +1,19 @@
 import React from 'react';
-
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils.js';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import Header from './components/header/Header.component';
 import HomePage from './pages/homepage/HomePage.component';
 import ShopPage from './pages/shop-page/ShopPage.component';
 import SignInAndSignUp from './pages/sign-in-and-sign-up/SignInAndSignUp.component';
+import Checkout from './pages/checkout page/Checkout';
+
+import { selectCurrentUser } from './redux/user/userSelector';
+import { setCurrentUser } from './redux/user/userAction.js';
 
 import './App.css';
-import { setCurrentUser } from './redux/user/userAction.js';
 
 class App extends React.Component {
 
@@ -50,10 +53,11 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path={'/'} component={HomePage} />
-          <Route exact={true} path={'/shop'} component={ShopPage} />
+          <Route path={'/shop'} component={ShopPage} />
           <Route exact path={'/sign-in-and-sign-up'} render={ () => {
             return this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignUp />)
           }}/>
+          <Route exact path='/checkout' component={Checkout} />
         </Switch>
       </div>
     );
@@ -63,11 +67,9 @@ class App extends React.Component {
 // we destructure the userReducer state off the user key in the state 
 // stored in the rootReducer so that we can have access to the currentUser in
 // the userReducer state
-const mapStateToProps = ({ user }) => {
-  return {
-    currentUser: user.currentUser
-  }
-}
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
+})
 
 const mapDispatchToProps = (dispatch) => {
   return {
