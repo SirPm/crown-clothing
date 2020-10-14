@@ -31,7 +31,7 @@ const CartDropdown = ({ cartItems, history, dispatch }) => {
                     )
                 }
             </div>
-            <CustomButton onClick={handleClick}>
+            <CustomButton onClick={handleClick} isCartDropDown>
                 Go To Checkout
             </CustomButton>
         </div>

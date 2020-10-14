@@ -23,3 +23,26 @@
     }
   }
 }
+
+
+@media screen and (max-width: 800px) {
+  .header {
+    flex-direction: column;
+    margin-bottom: 80px;
+
+    .logo-container {
+      margin: auto;
+      padding: 25px 0;
+    }
+
+    .options {
+      width: 100%;
+      justify-content: space-around;
+
+      .option {
+        padding: 0;
+        font-size: 14px;
+      }
+    }
+  }
+}

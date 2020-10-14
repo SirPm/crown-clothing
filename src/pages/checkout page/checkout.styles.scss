@@ -1,5 +1,5 @@
 .checkout-page {
-    width: 55%;
+    width: 100%;
     min-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -40,4 +40,44 @@
       margin-left: auto;
       font-size: 36px;
     }
+}
+
+@media screen and (max-width: 800px) {
+  .checkout-page {
+    width: 90%;
+    margin: auto;
+
+    .checkout-header {
+
+      .header-block {
+        span {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .total {
+      font-size: 26px;
+    }
+
+    .test-warning {
+      font-size: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .checkout-page {
+
+    .checkout-header {
+
+      .header-block {
+        margin-right: 8%;
+  
+        &:last-child {
+          width: 23%;
+        }
+      }
+    }
+  }
 }
