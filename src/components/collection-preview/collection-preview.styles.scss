@@ -13,3 +13,19 @@
       justify-content: space-between;
     }
 }
+
+@media screen and (max-width: 800px) {
+  .collection-preview {
+
+    .title {
+      font-size: 26px;
+      margin: auto;
+      margin-bottom: 25px;
+      width: fit-content;
+    }
+
+    .preview {
+      flex-direction: column;
+    }
+  }
+}

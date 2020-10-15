@@ -6,11 +6,11 @@ import { addItem } from '../../redux/cart/cartActions';
 
 import './collection-item.styles.scss';
 
-const CollectionItem = ({ item, addItem }) => {
+const CollectionItem = ({ item, addItem, preview }) => {
     const { name, price, imageUrl } = item;
     
     return (
-        <div className='collection-item'>
+        <div className={ preview ? ('special') : ('collection-item') }>
             <div 
                 className='image'
                 style={{
